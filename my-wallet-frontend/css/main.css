@@ -1,0 +1,48 @@
+#sidebar {
+    float: left;
+    width: 25%;
+    padding: 20px;
+    font-size: 20px;
+}
+
+#content {
+    padding: 20px;
+    float: right;
+    width: 75%;
+}
+
+#main-wrap {
+    position:fixed;
+    width:1000px;
+    height:600px;
+    border: 1px solid #ccc;
+    background-color: #f3f3f3;
+}
+
+.collapse {
+
+    font-size: 15px;
+}
+
+.fa.fa-clone, .fa.fa-home, .fa.fa-eur, .fa.fa-long-arrow-down{
+    font-size: 30px;
+}
+
+.fa.fa-caret-down {
+    overflow: auto;
+}
+
+#content-title{
+    text-align: center;
+    width: 100%;
+    height: 50px;
+    background-color: #0066ff;
+    font-size: 35px;
+    color: white;
+}
+.list-group-item {
+    background-color: #f1f9fb;
+    border-top: 1px solid #0091b5;
+    border-left-color: #fff;
+    border-right-color: #fff;
+}
