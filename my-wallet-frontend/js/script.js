@@ -60,26 +60,34 @@ webWalletApp.controller('listOfExpensesController',  function($scope, $http) {
 });
 webWalletApp.controller('summaryController', function($scope, $http) {
     $scope.message = 'Summary';
+    var categoryLabels = [];
+    var totalMoney = [];
     $scope.loadData = $http.get('http://localhost:8080/api/transactions/this-month').success(function (response) {
         $scope.expenses = response;
-    });
-    
-    new Chart(document.getElementById("pie-chart"), {
-        type: 'pie',
-        data: {
-            labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
-            datasets: [{
-                label: "Population (millions)",
-                backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-                data: [2478,5267,734,784,433]
-            }]
-        },
-        options: {
-            title: {
-                display: true,
-                text: 'Predicted world population (millions) in 2050'
-            }
+        var length = $scope.expenses.length;
+        console.log(length);
+        for(var i = 0; i < length; ++i){
+            categoryLabels.push($scope.expenses[i].categoryName);
+            totalMoney.push(parseFloat($scope.expenses[i].totalMoney));
         }
+        new Chart(document.getElementById("pie-chart"), {
+            type: 'pie',
+            data: {
+                labels: categoryLabels,
+                datasets: [{
+                    label: "Monthly expenses in categories",
+                    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                    data: totalMoney
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Monthly expenses in categories',
+                    fontSize: 22
+                }
+            }
+        });
     });
 });
 webWalletApp.controller('importDataController', function($scope) {
