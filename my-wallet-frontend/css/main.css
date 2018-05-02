@@ -46,3 +46,22 @@
     border-left-color: #fff;
     border-right-color: #fff;
 }
+
+td {
+    padding: 20px;
+    border: 1px solid grey;
+}
+
+table, th, tr {
+    border-collapse:separate;
+    width: 100%;
+    border: 1px solid grey;
+    margin: 10px;
+}
+
+table tr:nth-child(odd) {
+    background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+    background-color: #ffffff;
+}

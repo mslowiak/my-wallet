@@ -34,23 +34,35 @@ webWalletApp.config(function($routeProvider) {
 
 });
 
-webWalletApp.controller('homeController', ['$scope', '$http', function($scope) {
+webWalletApp.controller('homeController', function($scope) {
     $scope.message = 'Home';
-}]);
+});
 
 webWalletApp.controller('historyController', function($scope) {
     $scope.message = 'History';
 });
 
-webWalletApp.controller('listOfCategoriesController', function($scope) {
+webWalletApp.controller('listOfCategoriesController', function($scope, $http, $log) {
+    $scope.loadData = $http.get('http://localhost:8080/api/categories').success(function (response) {
+        $scope.categories = response;
+    });
+    $scope.sortType = 'name';
+    $scope.sortReverse = false;
+
+    $scope.TestClick = function(){
+        $log.log($scope.sortType);
+        $log.log($scope.sortReverse);
+    };
+
     $scope.message = 'List of categories';
 });
-webWalletApp.controller('listOfExpensesController', ['$scope', '$http', function($scope) {
+webWalletApp.controller('listOfExpensesController',  function($scope) {
     $scope.message = 'List of expenses';
-}]);
-webWalletApp.controller('summaryController', ['$scope', '$http', function($scope) {
+});
+webWalletApp.controller('summaryController', function($scope) {
     $scope.message = 'Summary';
-}]);
-webWalletApp.controller('importDataController', ['$scope', '$http', function($scope) {
+});
+webWalletApp.controller('importDataController', function($scope) {
     $scope.message = 'Import Data';
-}]);
+});
+

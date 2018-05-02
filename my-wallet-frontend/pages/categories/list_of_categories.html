@@ -1,6 +1,46 @@
 <div id="content-title">
     {{message}}
 </div>
+
 <div>
-{{categories}}
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <td>
+                <a data-target="#all-categories" data-ng-click="sortType = 'categoryId'">
+                    ID
+                    <span data-ng-show="sortType == 'categoryId'" data-ng-click="sortReverse = !sortReverse" class="fa fa-caret-down"></span>
+                </a>
+            </td>
+            <td>
+                <a data-target="#all-categories" data-ng-click="sortType = 'name'">
+                    Name
+                    <span data-ng-show="sortType == 'name'" data-ng-click="sortReverse = !sortReverse" class="fa fa-caret-down"></span>
+                </a>
+            </td>
+            <td>
+                <a data-target="#all-categories" data-ng-click="sortType = 'color'">
+                    Color
+                    <span data-ng-show="sortType == 'color'" data-ng-click="sortReverse = !sortReverse" class="fa fa-caret-down"></span>
+                </a>
+            </td>
+            <td>
+                <a data-target="#all-categories">
+                    Delete
+                </a>
+            </td>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr data-ng-repeat="category in categories  | orderBy:sortType:sortReverse">
+            <td>{{ category.categoryId}}</td>
+            <td>{{ category.name }}</td>
+            <td>{{ category.color }}</td>
+            <td>
+                <button data-ng-click="TestClick()">Delete</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
