@@ -1,65 +1,56 @@
 var webWalletApp = angular.module('webWalletApp', ['ngRoute']);
 
-// webWalletApp.config(function($routeProvider) {
-//     $routeProvider
-//
-//         .when('/', {
-//             templateUrl : 'pages/home.html',
-//             controller  : 'mainController'
-//         })
-//
-//         .when('/history', {
-//             templateUrl : 'pages/history.html',
-//             controller  : 'historyController'
-//         })
-//
-//         .when('/categories', {
-//             templateUrl : 'pages/list_of_categories.html',
-//             controller  : 'contactController'
-//         })
-//
-//         .when('/list-of-expenses', {
-//             templateUrl : 'pages/list_of_expenses.html',
-//             controller  : 'contactController'
-//         })
-//
-//         .when('/search-in-expenses', {
-//             templateUrl : 'pages/summary.html',
-//             controller  : 'contactController'
-//         })
-//
-//         .when('/import-data', {
-//             templateUrl : 'pages/import_data.html',
-//             controller  : 'importDataController'
-//         });
-// });
 webWalletApp.config(function($routeProvider) {
     $routeProvider
-        .when('/', {
-            templateUrl : 'pages/home.html'
+        .when('/home/', {
+            templateUrl : 'pages/home.html',
+            controller  : 'homeController'
         })
 
-        .when('/home', {
-            templateUrl : 'pages/home.html'
+        .when('/history/', {
+            templateUrl : 'pages/expenses/history.html',
+            controller  : 'historyController'
         })
 
-        .when('/history', {
-            templateUrl : 'pages/expenses/history.html'
+        .when('/all-categories/', {
+            templateUrl : 'pages/categories/list_of_categories.html',
+            controller  : 'listOfCategoriesController'
         })
 
-        .when('/all-categories', {
-            templateUrl : 'pages/categories/list_of_categories.html'
+        .when('/all-expenses/', {
+            templateUrl : 'pages/expenses/list_of_expenses.html',
+            controller  : 'listOfExpensesController'
         })
 
-        .when('/all-expenses', {
-            templateUrl : 'pages/expenses/list_of_expenses.html'
+        .when('/summary/', {
+            templateUrl : 'pages/categories/summary.html',
+            controller  : 'summaryController'
         })
 
-        .when('/summary', {
-            templateUrl : 'pages/categories/summary.html'
+        .when('/import-data/', {
+            templateUrl : 'pages/import_data.html',
+            controller  : 'importDataController'
         })
 
-        .when('/import-data', {
-            templateUrl : 'pages/import_data.html'
-        });
 });
+
+webWalletApp.controller('homeController', ['$scope', '$http', function($scope) {
+    $scope.message = 'Home';
+}]);
+
+webWalletApp.controller('historyController', function($scope) {
+    $scope.message = 'History';
+});
+
+webWalletApp.controller('listOfCategoriesController', function($scope) {
+    $scope.message = 'List of categories';
+});
+webWalletApp.controller('listOfExpensesController', ['$scope', '$http', function($scope) {
+    $scope.message = 'List of expenses';
+}]);
+webWalletApp.controller('summaryController', ['$scope', '$http', function($scope) {
+    $scope.message = 'Summary';
+}]);
+webWalletApp.controller('importDataController', ['$scope', '$http', function($scope) {
+    $scope.message = 'Import Data';
+}]);

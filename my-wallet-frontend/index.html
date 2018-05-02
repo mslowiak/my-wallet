@@ -10,18 +10,17 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
     <script src="js/script.js"></script>
 </head>
 
 <body>
 <div id="main-wrap">
     <div id="sidebar" class="list-group">
-        <a href="#home" class="list-group-item active" data-parent="#sidebar">
+        <a href="#home" class="list-group-item" data-parent="#sidebar">
             <i class="fa fa-home fa-fw"></i>
             Home
         </a>
-        <a href="#expenses" class="list-group-item" data-toggle="collapse" data-parent="#sidebar">
+        <a href="#expenses"  class="list-group-item" data-toggle="collapse" data-parent="#sidebar">
             <i class="fa fa-eur fa-fw"></i>
             Expenses
             <i class="fa fa-caret-down"></i>
@@ -39,15 +38,12 @@
             <a href="#summary" class="list-group-item">Summary</a>
             <a href="#all-categories" class="list-group-item">List of categories</a>
         </div>
-        <a href="#import" class="list-group-item" data-parent="#sidebar">
+        <a href="#import-data" class="list-group-item" data-parent="#sidebar">
             <i class="fa fa-long-arrow-down fa-fw"></i>
             Import data
         </a>
     </div>
     <div id="content">
-        <div id="content-title">
-            Home
-        </div>
         <div data-ng-view></div>
     </div>
 </div>
