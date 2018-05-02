@@ -7,12 +7,12 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class CategoryMonthlyStatistics {
+public class CategoryExpense {
 
     private String categoryName;
     private BigDecimal totalMoney;
 
-    public CategoryMonthlyStatistics(String categoryName, BigDecimal totalMoney) {
+    public CategoryExpense(String categoryName, BigDecimal totalMoney) {
         this.categoryName = categoryName;
         this.totalMoney = totalMoney;
     }

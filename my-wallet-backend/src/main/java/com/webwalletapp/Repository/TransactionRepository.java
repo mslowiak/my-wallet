@@ -22,9 +22,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
     )
     List<Object[]> getTransactionsFromCurrentMonth();
 
-//    @Query()
-//    List<Transaction> getMonthlyBalanceOfExpenses();
-//
-//    @Query()
-//    List<Transaction> getMonthyBalanceOfIncomes();
+    @Query("SELECT MONTHNAME(t.date) as monthName, CONCAT(YEAR(t.date), LPAD(MONTH(date), 2, '0')) as dateCode, " +
+            "SUM(t.price) as balance, type FROM Transaction as t GROUP BY YEAR(t.date), MONTH(t.date), t.type " +
+            "ORDER BY dateCode DESC")
+    List<Object[]> getMonthlyBalance();
 }
