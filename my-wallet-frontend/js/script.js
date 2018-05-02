@@ -58,9 +58,12 @@ webWalletApp.controller('listOfExpensesController',  function($scope, $http) {
         $scope.expenses = response;
     });
 });
-webWalletApp.controller('summaryController', function($scope) {
+webWalletApp.controller('summaryController', function($scope, $http) {
     $scope.message = 'Summary';
-
+    $scope.loadData = $http.get('http://localhost:8080/api/transactions/this-month').success(function (response) {
+        $scope.expenses = response;
+    });
+    
     new Chart(document.getElementById("pie-chart"), {
         type: 'pie',
         data: {
