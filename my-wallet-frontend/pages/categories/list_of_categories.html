@@ -38,7 +38,7 @@
             <td>{{ category.name }}</td>
             <td>{{ category.color }}</td>
             <td>
-                <button data-ng-click="deleteCategory(category.categoryId)">Delete</button>
+                <button class="btn btn-sm btn-danger" data-ng-confirm-click="Deleting category with assigned transactions can delete them. Are you sure to delete this record?" data-confirmed-click="deleteCategory(category.categoryId)">Delete</button>
             </td>
         </tr>
         </tbody>

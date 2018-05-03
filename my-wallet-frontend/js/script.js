@@ -1,7 +1,13 @@
-var webWalletApp = angular.module('webWalletApp', ['ngRoute']);
+var webWalletApp = angular.module('webWalletApp', ['ngRoute', 'ngMaterial', 'ngMessages']);
 
-webWalletApp.config(function ($routeProvider) {
+webWalletApp.config(function ($locationProvider, $routeProvider) {
+    $locationProvider.hashPrefix('');
     $routeProvider
+        .when('/', {
+            templateUrl: 'pages/home.html',
+            controller: 'homeController'
+        })
+
         .when('/home/', {
             templateUrl: 'pages/home.html',
             controller: 'homeController'
@@ -27,7 +33,7 @@ webWalletApp.config(function ($routeProvider) {
             controller: 'summaryController'
         })
 
-        .when('/import-data/', {
+        .when('/import-data', {
             templateUrl: 'pages/import_data.html',
             controller: 'importDataController'
         })
@@ -44,10 +50,9 @@ webWalletApp.controller('historyController', function ($scope, $http) {
     var expensesList = [];
     var incomesList = [];
 
-    $scope.loadData = $http.get('http://localhost:8080/api//transactions/balance-history').success(function (response) {
-        $scope.balanceHistory = response;
+    $scope.loadData = $http.get('http://localhost:8080/api//transactions/balance-history').then(function (response) {
+        $scope.balanceHistory = response.data;
         var length = $scope.balanceHistory.length;
-        console.log(length);
         if (length > 6) {
             length = 6;
         }
@@ -101,8 +106,8 @@ webWalletApp.controller('historyController', function ($scope, $http) {
 webWalletApp.controller('listOfCategoriesController', function ($scope, $http, $window) {
     $scope.message = 'List of categories';
 
-    $scope.loadData = $http.get('http://localhost:8080/api/categories').success(function (response) {
-        $scope.categories = response;
+    $scope.loadData = $http.get('http://localhost:8080/api/categories').then(function (response) {
+        $scope.categories = response.data;
     });
 
     $scope.sortType = 'name';
@@ -116,16 +121,16 @@ webWalletApp.controller('listOfCategoriesController', function ($scope, $http, $
 });
 webWalletApp.controller('listOfExpensesController', function ($scope, $http) {
     $scope.message = 'List of expenses';
-    $scope.loadData = $http.get('http://localhost:8080/api/categories').success(function (response) {
-        $scope.expenses = response;
+    $scope.loadData = $http.get('http://localhost:8080/api/categories').then(function (response) {
+        $scope.expenses = response.data;
     });
 });
 webWalletApp.controller('summaryController', function ($scope, $http) {
     $scope.message = 'Summary';
     var categoryLabels = [];
     var totalMoney = [];
-    $scope.loadData = $http.get('http://localhost:8080/api/transactions/this-month').success(function (response) {
-        $scope.expenses = response;
+    $scope.loadData = $http.get('http://localhost:8080/api/transactions/this-month').then(function (response) {
+        $scope.expenses = response.data;
         var length = $scope.expenses.length;
         for (var i = 0; i < length; ++i) {
             categoryLabels.push($scope.expenses[i].categoryName);
@@ -171,3 +176,18 @@ function getMonthName(monthNumber) {
     month[11] = "December";
     return month[monthNumber - 1]
 }
+
+webWalletApp.directive('ngConfirmClick', [
+    function () {
+        return {
+            link: function (scope, element, attr) {
+                var msg = attr.ngConfirmClick || "Are you sure?";
+                var clickAction = attr.confirmedClick;
+                element.bind('click', function (event) {
+                    if (window.confirm(msg)) {
+                        scope.$eval(clickAction)
+                    }
+                });
+            }
+        };
+    }]);
