@@ -1,44 +1,44 @@
 var webWalletApp = angular.module('webWalletApp', ['ngRoute']);
 
-webWalletApp.config(function($routeProvider) {
+webWalletApp.config(function ($routeProvider) {
     $routeProvider
         .when('/home/', {
-            templateUrl : 'pages/home.html',
-            controller  : 'homeController'
+            templateUrl: 'pages/home.html',
+            controller: 'homeController'
         })
 
         .when('/history/', {
-            templateUrl : 'pages/expenses/history.html',
-            controller  : 'historyController'
+            templateUrl: 'pages/expenses/history.html',
+            controller: 'historyController'
         })
 
         .when('/all-categories/', {
-            templateUrl : 'pages/categories/list_of_categories.html',
-            controller  : 'listOfCategoriesController'
+            templateUrl: 'pages/categories/list_of_categories.html',
+            controller: 'listOfCategoriesController'
         })
 
         .when('/all-expenses/', {
-            templateUrl : 'pages/expenses/list_of_expenses.html',
-            controller  : 'listOfExpensesController'
+            templateUrl: 'pages/expenses/list_of_expenses.html',
+            controller: 'listOfExpensesController'
         })
 
         .when('/summary/', {
-            templateUrl : 'pages/categories/summary.html',
-            controller  : 'summaryController'
+            templateUrl: 'pages/categories/summary.html',
+            controller: 'summaryController'
         })
 
         .when('/import-data/', {
-            templateUrl : 'pages/import_data.html',
-            controller  : 'importDataController'
+            templateUrl: 'pages/import_data.html',
+            controller: 'importDataController'
         })
 
 });
 
-webWalletApp.controller('homeController', function($scope) {
+webWalletApp.controller('homeController', function ($scope) {
     $scope.message = 'Home';
 });
 
-webWalletApp.controller('historyController', function($scope, $http) {
+webWalletApp.controller('historyController', function ($scope, $http) {
     $scope.message = 'History';
     var months = [];
     var expensesList = [];
@@ -48,10 +48,10 @@ webWalletApp.controller('historyController', function($scope, $http) {
         $scope.balanceHistory = response;
         var length = $scope.balanceHistory.length;
         console.log(length);
-        if(length > 6){
+        if (length > 6) {
             length = 6;
         }
-        for(var i = length-1; i >= 0; --i){
+        for (var i = length - 1; i >= 0; --i) {
             var actualBalanceHistory = $scope.balanceHistory[i];
             months.push(getMonthName(actualBalanceHistory.month) + " " + actualBalanceHistory.year);
             expensesList.push(actualBalanceHistory.monthlyExpenses);
@@ -98,7 +98,7 @@ webWalletApp.controller('historyController', function($scope, $http) {
     });
 });
 
-webWalletApp.controller('listOfCategoriesController', function($scope, $http) {
+webWalletApp.controller('listOfCategoriesController', function ($scope, $http, $window) {
     $scope.message = 'List of categories';
 
     $scope.loadData = $http.get('http://localhost:8080/api/categories').success(function (response) {
@@ -107,21 +107,27 @@ webWalletApp.controller('listOfCategoriesController', function($scope, $http) {
 
     $scope.sortType = 'name';
     $scope.sortReverse = false;
+
+    $scope.deleteCategory = function (id) {
+        $http.delete('http://localhost:8080/api/categories/' + id);
+        $window.location.reload();
+    };
+
 });
-webWalletApp.controller('listOfExpensesController',  function($scope, $http) {
+webWalletApp.controller('listOfExpensesController', function ($scope, $http) {
     $scope.message = 'List of expenses';
     $scope.loadData = $http.get('http://localhost:8080/api/categories').success(function (response) {
         $scope.expenses = response;
     });
 });
-webWalletApp.controller('summaryController', function($scope, $http) {
+webWalletApp.controller('summaryController', function ($scope, $http) {
     $scope.message = 'Summary';
     var categoryLabels = [];
     var totalMoney = [];
     $scope.loadData = $http.get('http://localhost:8080/api/transactions/this-month').success(function (response) {
         $scope.expenses = response;
         var length = $scope.expenses.length;
-        for(var i = 0; i < length; ++i){
+        for (var i = 0; i < length; ++i) {
             categoryLabels.push($scope.expenses[i].categoryName);
             totalMoney.push(parseFloat($scope.expenses[i].totalMoney));
         }
@@ -131,7 +137,7 @@ webWalletApp.controller('summaryController', function($scope, $http) {
                 labels: categoryLabels,
                 datasets: [{
                     label: "Monthly expenses in categories",
-                    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
                     data: totalMoney
                 }]
             },
@@ -145,11 +151,11 @@ webWalletApp.controller('summaryController', function($scope, $http) {
         });
     });
 });
-webWalletApp.controller('importDataController', function($scope) {
+webWalletApp.controller('importDataController', function ($scope) {
     $scope.message = 'Import Data';
 });
 
-function getMonthName(monthNumber){
+function getMonthName(monthNumber) {
     var month = [];
     month[0] = "January";
     month[1] = "February";
@@ -163,5 +169,5 @@ function getMonthName(monthNumber){
     month[9] = "October";
     month[10] = "November";
     month[11] = "December";
-    return month[monthNumber-1]
+    return month[monthNumber - 1]
 }
