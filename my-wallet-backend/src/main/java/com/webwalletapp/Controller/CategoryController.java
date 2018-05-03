@@ -31,4 +31,11 @@ public class CategoryController {
         return categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category", "id", categoryId));
     }
+
+    @CrossOrigin
+    @DeleteMapping("/categories/{id}")
+    public void deleteById(@PathVariable(value = "id") Integer id){
+        categoryRepository.deleteById(id);
+    }
+
 }
