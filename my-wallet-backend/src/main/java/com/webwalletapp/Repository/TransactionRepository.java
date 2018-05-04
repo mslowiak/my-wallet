@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -26,4 +27,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
             "SUM(t.price) as balance, type FROM Transaction as t GROUP BY YEAR(t.date), MONTH(t.date), t.type " +
             "ORDER BY dateCode DESC")
     List<Object[]> getMonthlyBalance();
+
+    List<Transaction> findByType(String type);
+    List<Transaction> findByTypeAndDateBetween(String type, LocalDate startDate, LocalDate endDate);
 }
