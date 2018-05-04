@@ -121,8 +121,8 @@ webWalletApp.controller('listOfCategoriesController', function ($scope, $http, $
 });
 webWalletApp.controller('listOfExpensesController', function ($scope, $http) {
     $scope.message = 'List of expenses';
-    $scope.loadData = $http.get('http://localhost:8080/api/categories').then(function (response) {
-        $scope.expenses = response.data;
+    $scope.loadData = $http.get('http://localhost:8080/api/transactions/expenses/').then(function (response) {
+        $scope.allExpenses = response.data;
     });
 });
 webWalletApp.controller('summaryController', function ($scope, $http) {
