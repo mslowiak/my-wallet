@@ -129,7 +129,7 @@ webWalletApp.controller('summaryController', function ($scope, $http) {
     $scope.message = 'Summary';
     var categoryLabels = [];
     var totalMoney = [];
-    $scope.loadData = $http.get('http://localhost:8080/api/transactions/this-month').then(function (response) {
+    $scope.loadData = $http.get('http://localhost:8080/api/transactions/expenses/last-month').then(function (response) {
         $scope.expenses = response.data;
         var length = $scope.expenses.length;
         for (var i = 0; i < length; ++i) {
