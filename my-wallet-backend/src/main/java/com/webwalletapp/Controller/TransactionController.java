@@ -37,20 +37,20 @@ public class TransactionController {
     }
 
     @CrossOrigin
-    @GetMapping("/transactions/this-month")
+    @GetMapping("/transactions/expenses")
+    public List<Transaction> getAllExpenses() {
+        return transactionRepository.findByType("Wydatek");
+    }
+
+    @CrossOrigin
+    @GetMapping("/transactions/expenses/last-month")
     public List<CategoryExpense> getTransactionsFromCurrentMonth() {
-        List<Object[]> transactionsFromCurrentMonth = transactionRepository.getTransactionsFromCurrentMonth();
+        List<Object[]> transactionsFromCurrentMonth = transactionRepository.getExpensesFromCurrentMonth();
         List<CategoryExpense> categoryMonthlyStatistics = new ArrayList<>();
         for (Object[] o : transactionsFromCurrentMonth) {
             categoryMonthlyStatistics.add(new CategoryExpense((String) o[0], new BigDecimal((Double) o[1], MathContext.DECIMAL64)));
         }
         return categoryMonthlyStatistics;
-    }
-
-    @CrossOrigin
-    @GetMapping("/transactions/expenses")
-    public List<Transaction> getAllExpenses() {
-        return transactionRepository.findByType("Wydatek");
     }
 
     @CrossOrigin

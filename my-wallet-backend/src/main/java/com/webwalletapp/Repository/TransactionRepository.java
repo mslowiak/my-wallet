@@ -18,10 +18,11 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
                 "ON t.category_ID = c.category_ID " +
                 "WHERE YEAR(t.date) = YEAR(CURRENT_DATE()) " +
                 "AND MONTH(t.date) = MONTH(CURRENT_DATE()) " +
+                "AND t.Type = 'Wydatek' " +
                 "GROUP BY c.name ",
             nativeQuery = true
     )
-    List<Object[]> getTransactionsFromCurrentMonth();
+    List<Object[]> getExpensesFromCurrentMonth();
 
     @Query("SELECT MONTHNAME(t.date) as monthName, CONCAT(YEAR(t.date), LPAD(MONTH(date), 2, '0')) as dateCode, " +
             "SUM(t.price) as balance, type FROM Transaction as t GROUP BY YEAR(t.date), MONTH(t.date), t.type " +
