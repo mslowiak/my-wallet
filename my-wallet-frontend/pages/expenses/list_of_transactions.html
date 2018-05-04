@@ -1,0 +1,31 @@
+<div id="content-title">
+    {{message}}
+</div>
+<div>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>date</td>
+            <td>description</td>
+            <td>price</td>
+            <td>category</td>
+            <td>type</td>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr data-ng-repeat="transaction in allTransactions">
+            <td>{{ transaction.transactionId}}</td>
+            <td>{{ transaction.date }}</td>
+            <td>{{ transaction.description }}</td>
+            <td>{{ transaction.price }}</td>
+            <td>{{ transaction.categoryId }}</td>
+            <td>{{ transaction.type }}</td>
+            <td>
+                <button class="btn btn-sm btn-danger" data-ng-confirm-click="Are you sure to delete this record?" data-confirmed-click="deleteTransaction(transaction.transactionId)">Delete</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

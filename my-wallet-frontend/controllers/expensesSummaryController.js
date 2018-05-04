@@ -1,5 +1,5 @@
-webWalletApp.controller('summaryController', function ($scope, $http) {
-    $scope.message = 'Summary';
+webWalletApp.controller('expensesSummaryController', function ($scope, $http) {
+    $scope.message = 'Expenses summary';
     var categoryLabels = [];
     var totalMoney = [];
     $scope.loadData = $http.get('http://localhost:8080/api/transactions/expenses/last-month').then(function (response) {
@@ -29,7 +29,6 @@ webWalletApp.controller('summaryController', function ($scope, $http) {
         });
     });
 });
-
 
 function getMonthName(monthNumber) {
     var month = [];

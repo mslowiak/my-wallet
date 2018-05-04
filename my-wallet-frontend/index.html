@@ -41,8 +41,8 @@
     <script src="controllers/homeController.js"></script>
     <script src="controllers/importDataController.js"></script>
     <script src="controllers/listOfCategoriesController.js"></script>
-    <script src="controllers/listOfExpensesController.js"></script>
-    <script src="controllers/summaryController.js"></script>
+    <script src="controllers/listOfTransactionsController.js"></script>
+    <script src="controllers/expensesSummaryController.js"></script>
 </head>
 
 <body>
@@ -52,13 +52,13 @@
             <i class="fa fa-home fa-fw"></i>
             Home
         </a>
-        <a href="#expenses"  class="list-group-item" data-toggle="collapse" data-parent="#sidebar">
+        <a href="#transactions"  class="list-group-item" data-toggle="collapse" data-parent="#sidebar">
             <i class="fa fa-eur fa-fw"></i>
-            Expenses
+            Transactions
             <i class="fa fa-caret-down"></i>
         </a>
-        <div class="collapse" id="expenses">
-            <a href="#all-expenses" class="list-group-item">List of expenses</a>
+        <div class="collapse" id="transactions">
+            <a href="#all-transactions" class="list-group-item">List of transactions</a>
             <a href="#history" class="list-group-item">History</a>
         </div>
         <a href="#categories" class="list-group-item" data-toggle="collapse" data-parent="#sidebar">
@@ -67,7 +67,7 @@
             <i class="fa fa-caret-down"></i>
         </a>
         <div class="collapse" id="categories">
-            <a href="#summary" class="list-group-item">Summary</a>
+            <a href="#expenses-by-category" class="list-group-item">Expenses summary</a>
             <a href="#all-categories" class="list-group-item">List of categories</a>
         </div>
         <a href="#import-data/" class="list-group-item" data-parent="#sidebar">

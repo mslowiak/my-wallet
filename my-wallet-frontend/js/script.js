@@ -23,14 +23,14 @@ webWalletApp.config(function ($locationProvider, $routeProvider) {
             controller: 'listOfCategoriesController'
         })
 
-        .when('/all-expenses/', {
-            templateUrl: 'pages/expenses/list_of_expenses.html',
-            controller: 'listOfExpensesController'
+        .when('/all-transactions/', {
+            templateUrl: 'pages/expenses/list_of_transactions.html',
+            controller: 'listOfTransactionsController'
         })
 
-        .when('/summary/', {
-            templateUrl: 'pages/categories/summary.html',
-            controller: 'summaryController'
+        .when('/expenses-by-category/', {
+            templateUrl: 'pages/categories/expenses-summary.html',
+            controller: 'expensesSummaryController'
         })
 
         .when('/import-data', {
