@@ -5,13 +5,11 @@ import com.webwalletapp.Entity.Transaction;
 import com.webwalletapp.MonthlyBalance;
 import com.webwalletapp.Repository.TransactionRepository;
 import com.webwalletapp.ResourceNotFoundException;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,19 +49,20 @@ public class TransactionController {
 
     @CrossOrigin
     @GetMapping("/transactions/expenses")
-    public List<Transaction> getAllExpenses(){
+    public List<Transaction> getAllExpenses() {
         return transactionRepository.findByType("Wydatek");
     }
 
     @CrossOrigin
     @GetMapping("/transactions/expenses/date-range/{startDate}/{endDate}")
     public List<Transaction> getAllExpensesWithDateRange(@PathVariable(value = "startDate") String startDate,
-                                                         @PathVariable(value = "endDate") String endDate){
+                                                         @PathVariable(value = "endDate") String endDate) {
         LocalDate startLocalDate = LocalDate.parse(startDate);
         LocalDate endLocalDate = LocalDate.parse(endDate);
         return transactionRepository
                 .findByTypeAndDateBetween("Wydatek", startLocalDate, endLocalDate);
     }
+
     @CrossOrigin
     @GetMapping("/transactions/balance-history")
     public List<MonthlyBalance> getMonthlyBalance() {
@@ -82,21 +81,21 @@ public class TransactionController {
             if (actualRow[1].equals(dateCode)) {
                 if (actualRow[3].equals("Wydatek")) {
                     expenses = (BigDecimal) actualRow[2];
-                    if(i+1 < monthlyBalance.size()){
+                    if (i + 1 < monthlyBalance.size()) {
                         Object[] nextPos = monthlyBalance.get(i + 1);
                         if (nextPos[1].equals(dateCode) && nextPos[3].equals("Przychod")) {
                             incomes = (BigDecimal) nextPos[2];
                             i++;
                         }
                     }
-                } else{
+                } else {
                     incomes = (BigDecimal) actualRow[2];
                 }
                 i++;
                 monthlyBalancesOutput.add(new MonthlyBalance(actualYear, actualMonth, expenses, incomes));
             }
             actualMonth--;
-            if(actualMonth == 0){
+            if (actualMonth == 0) {
                 actualMonth = 12;
                 actualYear--;
             }
