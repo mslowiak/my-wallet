@@ -2,10 +2,13 @@
     {{message}}
 </div>
 <div>
-    <table class="table table-bordered table-striped">
+    <button class="btn btn-sm btn-danger" data-ng-confirm-click="Are you sure to delete selected rows?" data-confirmed-click="deleteCheckedTransactions()">Delete checked</button>
+    <table id="transactions-table" class="table table-bordered table-striped">
         <thead>
         <tr>
-            <td>ID</td>
+            <td>
+                <input id="check-all" type="checkbox" ng-click="selectAll()"/>
+            </td>
             <td>date</td>
             <td>description</td>
             <td>price</td>
@@ -16,16 +19,16 @@
 
         <tbody>
         <tr data-ng-repeat="transaction in allTransactions">
-            <td>{{ transaction.transactionId}}</td>
+            <td>
+                <input id="checkbox_{{transaction.transactionId}}" ng-model="selectedAll" type="checkbox" value="{{transaction.transactionId}}" ng-click="toggleSelection(transaction.transactionId)"/>
+            </td>
             <td>{{ transaction.date }}</td>
             <td>{{ transaction.description }}</td>
             <td>{{ transaction.price }}</td>
             <td>{{ transaction.categoryId }}</td>
             <td>{{ transaction.type }}</td>
-            <td>
-                <button class="btn btn-sm btn-danger" data-ng-confirm-click="Are you sure to delete this record?" data-confirmed-click="deleteTransaction(transaction.transactionId)">Delete</button>
-            </td>
         </tr>
         </tbody>
     </table>
+
 </div>
