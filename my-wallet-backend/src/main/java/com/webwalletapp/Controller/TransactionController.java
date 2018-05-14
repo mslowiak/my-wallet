@@ -102,4 +102,13 @@ public class TransactionController {
         }
         return monthlyBalancesOutput;
     }
+
+    @CrossOrigin
+    @DeleteMapping("/transactions/")
+    public void deleteById(@PathVariable(value = "id") Integer id){
+        transactionRepository.deleteById(id);
+    }
+
+
+
 }
