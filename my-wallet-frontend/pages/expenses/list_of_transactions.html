@@ -7,7 +7,7 @@
         <table class="table table-bordered table-striped tableBodyScroll">
             <thead>
             <tr>
-                <td>
+                <td width=30>
                     <input id="check-all" type="checkbox" ng-click="selectAll()"/>
                 </td>
                 <td>date</td>
@@ -20,7 +20,7 @@
 
             <tbody>
             <tr data-ng-repeat="transaction in allTransactions">
-                <td>
+                <td width=30>
                     <input id="checkbox_{{transaction.transactionId}}" ng-model="selectedAll" type="checkbox" value="{{transaction.transactionId}}" ng-click="toggleSelection(transaction.transactionId)"/>
                 </td>
                 <td>{{ transaction.date }}</td>
