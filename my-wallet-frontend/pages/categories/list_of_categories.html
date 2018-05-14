@@ -3,10 +3,10 @@
 </div>
 
 <div>
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped tableBodyScroll">
         <thead>
         <tr>
-            <td>
+            <td width=50>
                 <a data-target="#all-categories" data-ng-click="sortType = 'categoryId'">
                     ID
                     <span data-ng-show="sortType == 'categoryId'" data-ng-click="sortReverse = !sortReverse" class="fa fa-caret-down"></span>
@@ -24,9 +24,14 @@
                     <span data-ng-show="sortType == 'color'" data-ng-click="sortReverse = !sortReverse" class="fa fa-caret-down"></span>
                 </a>
             </td>
-            <td>
+            <td width=80>
                 <a data-target="#all-categories">
                     Delete
+                </a>
+            </td>
+            <td width=80>
+                <a data-target="#all-categories">
+                    Edit
                 </a>
             </td>
         </tr>
@@ -34,11 +39,14 @@
 
         <tbody>
         <tr data-ng-repeat="category in categories  | orderBy:sortType:sortReverse">
-            <td>{{ category.categoryId}}</td>
+            <td width=50>{{ category.categoryId}}</td>
             <td>{{ category.name }}</td>
             <td>{{ category.color }}</td>
-            <td>
+            <td width=80>
                 <button class="btn btn-sm btn-danger" data-ng-confirm-click="Deleting category with assigned transactions can delete them. Are you sure to delete this record?" data-confirmed-click="deleteCategory(category.categoryId)">Delete</button>
+            </td>
+            <td width=80>
+                <button class="btn btn-sm btn-primary" data-confirmed-click="">Edit</button>
             </td>
         </tr>
         </tbody>
