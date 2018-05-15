@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -104,11 +105,11 @@ public class TransactionController {
     }
 
     @CrossOrigin
-    @DeleteMapping("/transactions/")
-    public void deleteById(@PathVariable(value = "id") Integer id){
-        transactionRepository.deleteById(id);
+    @DeleteMapping("/transactions/{ids}")
+    public void deleteById(@PathVariable(value = "ids") String ids){
+        int[] ints = Arrays.stream(ids.split("=")[1].split(","))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+        transactionRepository.deleteTransactionsByTransactionIdIn(ints);
     }
-
-
-
 }

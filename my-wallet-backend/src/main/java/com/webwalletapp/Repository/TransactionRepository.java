@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -31,4 +32,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
 
     List<Transaction> findByType(String type);
     List<Transaction> findByTypeAndDateBetween(String type, LocalDate startDate, LocalDate endDate);
+
+    void deleteTransactionsByTransactionIdIn(int[] idsToDelete);
 }
