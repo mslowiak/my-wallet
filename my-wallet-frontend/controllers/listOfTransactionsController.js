@@ -27,11 +27,15 @@ webWalletApp.controller('listOfTransactionsController', function ($scope, $http)
 
     $scope.deleteCheckedTransactions = function deleteCheckedTransactions() {
         console.log($scope.selection.length);
+        var toDelete = "ids=";
         for (var i = 0; i< $scope.selection.length; ++i){
-            $http.delete('http://localhost:8080/api/transactions/' + $scope.selection[i]).then(function (response) {
-                console.log(response);
-            })
+            toDelete = toDelete + $scope.selection[i] + ",";
         }
-        window.location.reload();
+        toDelete = toDelete.slice(0,-1);
+        console.log(toDelete);
+        $http.delete('http://localhost:8080/api/transactions/' + toDelete).then(function (response) {
+            console.log(response);
+            window.location.reload();
+        });
     }
 });
