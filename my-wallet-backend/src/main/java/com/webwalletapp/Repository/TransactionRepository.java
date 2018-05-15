@@ -33,5 +33,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
     List<Transaction> findByType(String type);
     List<Transaction> findByTypeAndDateBetween(String type, LocalDate startDate, LocalDate endDate);
 
+    @Transactional
     void deleteTransactionsByTransactionIdIn(int[] idsToDelete);
 }
