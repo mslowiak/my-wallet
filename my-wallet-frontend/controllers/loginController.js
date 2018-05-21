@@ -12,7 +12,7 @@ webWalletApp.controller('loginController', function ($rootScope, $scope, $http) 
         }).then(function (response) {
             $rootScope.isLogged = true;
             $rootScope.loggedUserId = response.data.userId;
-            errorLabel
+            errorLabel.style.display = 'none';
         }).catch(function (reason) {
             errorLabel.innerHTML = reason.data.result;
             errorLabel.style.display = 'block';
