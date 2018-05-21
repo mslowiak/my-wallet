@@ -1,5 +1,5 @@
-webWalletApp.controller('loginController', function ($rootScope, $scope, $http) {
-    document.getElementById("sidebar").style.display = 'none';
+webWalletApp.controller('loginController', function ($rootScope, $location, $scope, $http) {
+    document.getElementById('sidebar').style.display = 'none';
     document.getElementById('login-button').addEventListener("click", function () {
         var login = document.getElementById('username-input').value;
         var password = CryptoJS.SHA256(document.getElementById('password-input').value).toString();
@@ -9,11 +9,15 @@ webWalletApp.controller('loginController', function ($rootScope, $scope, $http) 
             url: "http://localhost:8080/api/login",
             data: {login: login, password: password}
         }).then(function (response) {
+            console.log("then");
             $rootScope.isLogged = true;
             $rootScope.loggedUserId = response.data.userId;
             errorLabel.style.display = 'none';
-        }).catch(function (reason) {
-            errorLabel.innerHTML = reason.data.result;
+            document.getElementById("sidebar").style.display = 'block';
+            $location.path('/home/');
+        }, function (error) {
+            console.log("catch");
+            errorLabel.innerHTML = error.data.result;
             errorLabel.style.display = 'block';
         });
     });

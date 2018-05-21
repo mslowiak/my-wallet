@@ -5,49 +5,67 @@ webWalletApp.config(function ($locationProvider, $routeProvider) {
 
     $routeProvider
         .when('/', {
-            templateUrl: 'pages/login.html',
-            controller: 'loginController'
+            templateUrl: 'pages/home.html',
+            controller: 'homeController',
+            auth: true
         })
 
         .when('/home/', {
             templateUrl: 'pages/home.html',
-            controller: 'homeController'
+            controller: 'homeController',
+            auth: true
         })
 
         .when('/history/', {
             templateUrl: 'pages/expenses/history.html',
-            controller: 'historyController'
+            controller: 'historyController',
+            auth: true
         })
 
         .when('/all-categories/', {
             templateUrl: 'pages/categories/list_of_categories.html',
-            controller: 'listOfCategoriesController'
+            controller: 'listOfCategoriesController',
+            auth: true
         })
 
         .when('/all-transactions/', {
             templateUrl: 'pages/expenses/list_of_transactions.html',
-            controller: 'listOfTransactionsController'
+            controller: 'listOfTransactionsController',
+            auth: true
         })
 
         .when('/expenses-by-category/', {
             templateUrl: 'pages/categories/expenses-summary.html',
-            controller: 'expensesSummaryController'
+            controller: 'expensesSummaryController',
+            auth: true
         })
 
-        .when('/import-data', {
+        .when('/import-data/', {
             templateUrl: 'pages/import_data.html',
-            controller: 'importDataController'
+            controller: 'importDataController',
+            auth: true
         })
 
-        .when('/login', {
+        .when('/login/', {
             templateUrl: 'pages/login.html',
-            controller: 'loginController'
+            controller: 'loginController',
+            auth: false
         })
+
+        .otherwise({redirectTo:'/login/'});
 });
 
-webWalletApp.run(function ($rootScope) {
+webWalletApp.run(function ($rootScope, $location, $route) {
     $rootScope.isLogged = false;
     $rootScope.loggedUserId = null;
+    $rootScope.$on('$routeChangeStart', function (ev, next, curr) {
+        var nextPath = $location.path();
+        var nextRoute = $route.routes[nextPath];
+
+        if(nextRoute && nextRoute.auth && !$rootScope.isLogged){
+            $location.path("/login/");
+        }
+    })
 });
 
 webWalletApp.directive('ngConfirmClick', [
