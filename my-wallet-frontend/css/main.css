@@ -87,3 +87,44 @@ tbody {
     width: 98%;
     table-layout: fixed;
 }
+
+#login-page {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    border: solid black;
+    border-bottom-width: 2px;
+    padding: 10px;
+}
+
+#sign-up-form {
+    float: right;
+    overflow: auto;
+}
+
+#sign-up-form input {
+    display: block;
+}
+
+#sign-up-form > * {
+    margin: 10px;
+}
+
+#register-form {
+    float: right;
+    overflow: auto;
+    display: none;
+}
+
+#register-form input {
+    display: block;
+}
+
+#register-form > * {
+    margin: 10px;
+}
+
+#error-login-label {
+    display: none;
+    color: red;
+}

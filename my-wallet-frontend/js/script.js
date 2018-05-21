@@ -2,10 +2,11 @@ var webWalletApp = angular.module('webWalletApp', ['ngRoute', 'ngMaterial', 'ngM
 
 webWalletApp.config(function ($locationProvider, $routeProvider) {
     $locationProvider.hashPrefix('');
+
     $routeProvider
         .when('/', {
-            templateUrl: 'pages/home.html',
-            controller: 'homeController'
+            templateUrl: 'pages/login.html',
+            controller: 'loginController'
         })
 
         .when('/home/', {
@@ -38,6 +39,15 @@ webWalletApp.config(function ($locationProvider, $routeProvider) {
             controller: 'importDataController'
         })
 
+        .when('/login', {
+            templateUrl: 'pages/login.html',
+            controller: 'loginController'
+        })
+});
+
+webWalletApp.run(function ($rootScope) {
+    $rootScope.isLogged = false;
+    $rootScope.loggedUserId = null;
 });
 
 webWalletApp.directive('ngConfirmClick', [
