@@ -1,6 +1,5 @@
 webWalletApp.controller('loginController', function ($rootScope, $scope, $http) {
     document.getElementById("sidebar").style.display = 'none';
-    webWalletApp.value('loggedIn', true);
     document.getElementById('login-button').addEventListener("click", function () {
         var login = document.getElementById('username-input').value;
         var password = CryptoJS.SHA256(document.getElementById('password-input').value).toString();
