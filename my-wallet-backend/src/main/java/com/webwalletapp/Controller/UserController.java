@@ -26,11 +26,10 @@ public class UserController {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
-
     @CrossOrigin
-    @GetMapping("/users/{login}")
-    public User getUserByName(@PathVariable(value = "login") String login) {
-        return userRepository.findUserByLogin(login);
+    @GetMapping("/users/{userId}")
+    public User getUserById(@PathVariable(value = "userId") Integer userId) {
+        return userRepository.findUserByUserId(userId);
     }
 
     @CrossOrigin

@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Getter
@@ -34,13 +35,18 @@ public class User {
     @Column(name = "Email")
     private String email;
 
+    @JsonProperty("total_money")
+    @Column(name = "total_money")
+    private BigDecimal totalMoney;
+
     public User() {
     }
 
-    public User(String login, String password, String role, String email) {
+    public User(String login, String password, String role, String email, BigDecimal totalMoney) {
         this.login = login;
         this.password = password;
         this.role = role;
         this.email = email;
+        this.totalMoney = totalMoney;
     }
 }
