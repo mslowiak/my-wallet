@@ -130,7 +130,8 @@ public class TransactionController {
             if (i >= 0) {
                 extension = file.getOriginalFilename().substring(i + 1);
             }
-            if (!extension.equals(".txt")) {
+            System.out.println(extension);
+            if (!extension.equals("txt")) {
                 return new ResponseEntity(HttpStatus.UNSUPPORTED_MEDIA_TYPE);
             }
             byte[] bytes = file.getBytes();
