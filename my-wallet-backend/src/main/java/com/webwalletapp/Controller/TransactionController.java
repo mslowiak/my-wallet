@@ -5,10 +5,18 @@ import com.webwalletapp.Entity.Transaction;
 import com.webwalletapp.MonthlyBalance;
 import com.webwalletapp.Repository.TransactionRepository;
 import com.webwalletapp.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -106,10 +114,33 @@ public class TransactionController {
 
     @CrossOrigin
     @DeleteMapping("/transactions/{ids}")
-    public void deleteById(@PathVariable(value = "ids") String ids){
+    public void deleteById(@PathVariable(value = "ids") String ids) {
         int[] ints = Arrays.stream(ids.split("=")[1].split(","))
                 .mapToInt(Integer::parseInt)
                 .toArray();
         transactionRepository.deleteTransactionsByTransactionIdIn(ints);
+    }
+
+    @CrossOrigin
+    @PostMapping("/transactions/upload")
+    public ResponseEntity fileUpload(@RequestParam("file") MultipartFile file) {
+        try {
+            String extension = "";
+            int i = file.getOriginalFilename().lastIndexOf('.');
+            if (i >= 0) {
+                extension = file.getOriginalFilename().substring(i + 1);
+            }
+            if (!extension.equals(".txt")) {
+                return new ResponseEntity(HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+            }
+            byte[] bytes = file.getBytes();
+            File f = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
+            String downloadsDir = f.getParentFile().getParentFile().getParentFile() + "\\downloaded\\";
+            Path path = Paths.get(downloadsDir + file.getOriginalFilename());
+            Files.write(path, bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
