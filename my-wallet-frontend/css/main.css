@@ -128,3 +128,19 @@ tbody {
     display: none;
     color: red;
 }
+
+#upload-form{
+    position: absolute;
+    top: 40%;
+    left: 40%;
+}
+
+#error-import-file{
+    display: none;
+    color: red;
+}
+
+#success-import-file{
+    display: none;
+    color: forestgreen;
+}
