@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -42,6 +43,14 @@ public class UserController {
     @PutMapping("/users/user")
     public User addNewUser(@RequestBody User user) {
         return userRepository.save(user);
+    }
+
+    @CrossOrigin
+    @PostMapping("/users/{id}")
+    public void changeBalance(@PathVariable(value = "id") Integer userId, @RequestParam BigDecimal newBalance){
+        User userByUserId = userRepository.findUserByUserId(userId);
+        userByUserId.setTotalMoney(newBalance);
+        userRepository.save(userByUserId);
     }
 
     @CrossOrigin
