@@ -33,9 +33,15 @@ public class TransactionController {
     }
 
     @CrossOrigin
-    @GetMapping("/transactions")
-    public List<Transaction> getAllCategories() {
+    @GetMapping("/transactions/")
+    public List<Transaction> getAllTransactions() {
         return transactionRepository.findAll();
+    }
+
+    @CrossOrigin
+    @GetMapping("/transactions/all/{userId}")
+    public List<Transaction> getAllTransactionsForUser(@PathVariable(value = "userId") Integer userId) {
+        return transactionRepository.findAllByUserId(userId);
     }
 
     @CrossOrigin
@@ -52,9 +58,9 @@ public class TransactionController {
     }
 
     @CrossOrigin
-    @GetMapping("/transactions/expenses/last-month")
-    public List<CategoryExpense> getTransactionsFromCurrentMonth() {
-        List<Object[]> transactionsFromCurrentMonth = transactionRepository.getExpensesFromCurrentMonth();
+    @GetMapping("/transactions/expenses/last-month/{id}")
+    public List<CategoryExpense> getTransactionsFromCurrentMonth(@PathVariable(value = "id") Integer id) {
+        List<Object[]> transactionsFromCurrentMonth = transactionRepository.getExpensesFromCurrentMonth(id);
         List<CategoryExpense> categoryMonthlyStatistics = new ArrayList<>();
         for (Object[] o : transactionsFromCurrentMonth) {
             categoryMonthlyStatistics.add(new CategoryExpense((String) o[0], new BigDecimal((Double) o[1], MathContext.DECIMAL64)));
@@ -73,9 +79,9 @@ public class TransactionController {
     }
 
     @CrossOrigin
-    @GetMapping("/transactions/balance-history")
-    public List<MonthlyBalance> getMonthlyBalance() {
-        List<Object[]> monthlyBalance = transactionRepository.getMonthlyBalance();
+    @GetMapping("/transactions/balance-history/{id}")
+    public List<MonthlyBalance> getMonthlyBalance(@PathVariable(value = "id") Integer id){
+        List<Object[]> monthlyBalance = transactionRepository.getMonthlyBalance(id);
         int actualYear = LocalDate.now().getYear();
         int actualMonth = LocalDate.now().getMonthValue();
         List<MonthlyBalance> monthlyBalancesOutput = new ArrayList<>();

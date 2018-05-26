@@ -15,18 +15,22 @@ public class Category {
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "Category_ID")
     private int categoryId;
+
+    @Column(name="User_ID")
+    private Integer userId;
+
     @Column(name = "Name")
     private String name;
+
     @Column (name = "color")
     private String color;
 
     public Category() {
     }
 
-    public Category(int categoryId, String name, String color) {
-        this.categoryId = categoryId;
+    public Category(Integer userId, String name, String color) {
+        this.userId = userId;
         this.name = name;
         this.color = color;
     }
-
 }

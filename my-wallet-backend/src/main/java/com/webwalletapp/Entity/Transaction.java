@@ -18,6 +18,9 @@ public class Transaction {
     @Column(name = "Transaction_ID")
     private int transactionId;
 
+    @Column(name="User_ID")
+    private Integer userId;
+
     @Column(name = "Date")
     private LocalDate date;
 
@@ -36,7 +39,8 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(LocalDate date, String description, BigDecimal price, int categoryId, String type) {
+    public Transaction(Integer userId, LocalDate date, String description, BigDecimal price, int categoryId, String type) {
+        this.userId = userId;
         this.date = date;
         this.description = description;
         this.price = price;

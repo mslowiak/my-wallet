@@ -19,19 +19,20 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
                 "ON t.category_ID = c.category_ID " +
                 "WHERE YEAR(t.date) = YEAR(CURRENT_DATE()) " +
                 "AND MONTH(t.date) = MONTH(CURRENT_DATE()) " +
-                "AND t.Type = 'Wydatek' " +
+                "AND t.Type = 'Wydatek' AND  t.User_ID = ?1 " +
                 "GROUP BY c.name ",
             nativeQuery = true
     )
-    List<Object[]> getExpensesFromCurrentMonth();
+    List<Object[]> getExpensesFromCurrentMonth(Integer userId);
 
     @Query("SELECT MONTHNAME(t.date) as monthName, CONCAT(YEAR(t.date), LPAD(MONTH(date), 2, '0')) as dateCode, " +
-            "SUM(t.price) as balance, type FROM Transaction as t GROUP BY YEAR(t.date), MONTH(t.date), t.type " +
+            "SUM(t.price) as balance, type FROM Transaction as t WHERE t.userId = ?1 GROUP BY YEAR(t.date), MONTH(t.date), t.type " +
             "ORDER BY dateCode DESC, type DESC")
-    List<Object[]> getMonthlyBalance();
+    List<Object[]> getMonthlyBalance(Integer userId);
 
     List<Transaction> findByType(String type);
     List<Transaction> findByTypeAndDateBetween(String type, LocalDate startDate, LocalDate endDate);
+    List<Transaction> findAllByUserId(Integer userId);
 
     @Transactional
     void deleteTransactionsByTransactionIdIn(int[] idsToDelete);
