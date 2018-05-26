@@ -4,7 +4,7 @@ webWalletApp.controller('historyController', function ($scope, $http) {
     var expensesList = [];
     var incomesList = [];
 
-    $scope.loadData = $http.get('http://localhost:8080/api//transactions/balance-history').then(function (response) {
+    $scope.loadData = $http.get('http://localhost:8080/api/transactions/balance-history').then(function (response) {
         $scope.balanceHistory = response.data;
         var length = $scope.balanceHistory.length;
         if (length > 6) {

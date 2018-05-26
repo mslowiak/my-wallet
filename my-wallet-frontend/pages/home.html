@@ -1,4 +1,32 @@
 <div id="content-title">
     {{message}}
 </div>
-<div>other</div>
+<div id="home-user-detail" align="middle">
+    <div id="user-details">
+        <table>
+            <tbody>
+            <tr>
+                <td><b>Username: </b></td>
+                <td>{{userInfo.login}}</td>
+            </tr>
+            <tr>
+                <td><b>Email: </b></td>
+                <td>{{userInfo.email}}</td>
+            </tr>
+            <tr>
+                <td><b>Account balance: </b></td>
+                <td>{{userInfo.total_money}} zł</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button id="change-balance-button">Change balance</button></td>
+            </tr>
+        </table>
+        <div id="balance-change">
+            <input id="balance-input" type="text"/>
+            <button id="apply-changes-button" ng-click="changeBalance()">Apply</button>
+            <button id="discard-changes-button">Discard changes</button>
+        </div>
+    </div>
+
+</div>
