@@ -20,21 +20,27 @@ public class CategoryController {
     }
 
     @CrossOrigin
-    @GetMapping("/categories")
-    public List<Category> getAllCategories(){
+    @GetMapping("/categories/")
+    public List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }
 
     @CrossOrigin
+    @GetMapping("/categories/all/{userId}")
+    public List<Category> getAllCategoriesForUser(@PathVariable(value = "userId") Integer userId) {
+        return categoryRepository.findAllByUserId(userId);
+    }
+
+    @CrossOrigin
     @GetMapping("/categories/{id}")
-    public Category getNoteById(@PathVariable(value = "id") Integer categoryId) {
+    public Category getCategoryById(@PathVariable(value = "id") Integer categoryId) {
         return categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category", "id", categoryId));
     }
 
     @CrossOrigin
     @DeleteMapping("/categories/{id}")
-    public void deleteById(@PathVariable(value = "id") Integer id){
+    public void deleteById(@PathVariable(value = "id") Integer id) {
         categoryRepository.deleteById(id);
     }
 
