@@ -83,6 +83,17 @@ webWalletApp.directive('ngConfirmClick', [
         };
     }]);
 
+webWalletApp.controller("logoutController", function ($location, $scope) {
+    document.getElementById("logout-button").addEventListener("click", function () {
+        setCookie("isLogged", "false", 7);
+        setCookie("loggedUserId", "null", 7);
+        console.log(document.location.href);
+        console.log($location.path());
+        $location.path("/login/");
+        $scope.$apply();
+    });
+});
+
 function setCookie(name,value,days) {
     var expires = "";
     if (days) {

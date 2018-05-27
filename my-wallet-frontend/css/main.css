@@ -192,3 +192,22 @@
 #user-details tfoot tr:last-child td {
     border-bottom: 0;
 }
+
+#logout-form{
+    margin-top: 300px;
+    width: 25%;
+}
+
+#logout-button{
+    color: white;
+    background-color: #3E95CD;
+    border: none;
+    padding: 15px 32px;
+    width: 260px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
